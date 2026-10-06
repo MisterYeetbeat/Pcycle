@@ -4,11 +4,17 @@ import path from 'path';
 if (!fs.existsSync('engine')) fs.mkdirSync('engine');
 if (!fs.existsSync('data')) fs.mkdirSync('data');
 
-// Copy typescript engine
-fs.copyFileSync('src/engine/marketCycleEngine.ts', 'engine/marketCycleEngine.ts');
+// Copy typescript engine with correct standalone relative imports
+let tsEngine = fs.readFileSync('src/engine/marketCycleEngine.ts', 'utf8').replace(/from '\.\.\/types\.ts'/g, "from './types.ts'");
+fs.writeFileSync('engine/marketCycleEngine.ts', tsEngine);
+
 fs.copyFileSync('src/types.ts', 'engine/types.ts');
-fs.copyFileSync('src/data/ninetyDayTriggers.ts', 'engine/ninetyDayTriggers.ts');
-fs.copyFileSync('src/data/shortyUniverse50.ts', 'engine/shortyUniverse50.ts');
+
+let tsTriggers = fs.readFileSync('src/data/ninetyDayTriggers.ts', 'utf8').replace(/from '\.\.\/types\.ts'/g, "from './types.ts'");
+fs.writeFileSync('engine/ninetyDayTriggers.ts', tsTriggers);
+
+let tsUniverse = fs.readFileSync('src/data/shortyUniverse50.ts', 'utf8').replace(/from '\.\.\/types\.ts'/g, "from './types.ts'");
+fs.writeFileSync('engine/shortyUniverse50.ts', tsUniverse);
 
 // Create Python engine
 const pyEngine = `"""
