@@ -378,23 +378,17 @@ function getDistDirectory(): string | null {
 
 // Vite middleware mounting in development, or static serving in production
 async function startServer() {
+  const isProd = process.env.NODE_ENV === 'production';
   const distDir = getDistDirectory();
 
-  // If a built frontend dist directory exists or we are in production, serve the compiled assets
-  if (process.env.NODE_ENV === 'production' || distDir) {
-    if (distDir) {
-      console.log(`[Production] Serving static client bundle from: ${distDir}`);
-      app.use(express.static(distDir));
-      app.get('*', (_req: Request, res: Response) => {
-        res.sendFile(path.join(distDir, 'index.html'));
-      });
-    } else {
-      console.warn('[Warning] Running in production mode but dist/index.html was not found.');
-      app.get('*', (_req: Request, res: Response) => {
-        res.status(404).send('Application build in progress or dist directory not found.');
-      });
-    }
+  if (isProd && distDir) {
+    console.log(`[Production] Serving static client bundle from: ${distDir}`);
+    app.use(express.static(distDir));
+    app.get('*', (_req: Request, res: Response) => {
+      res.sendFile(path.join(distDir, 'index.html'));
+    });
   } else {
+    console.log('[Development] Mounting live Vite development middleware');
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
