@@ -1,0 +1,7 @@
+Ticker,Name,Price,ChangePct,RVOL,Phase,SqueezeScore,WhaleBullPct,DarkPoolBed
+AAOI,Applied Optoelectronics,104.85,4.58,3.8,Mark-Up Ignition,24.6,88,98.2
+NVDA,NVIDIA Corporation,231.40,1.11,2.8,Mark-Up Ignition,1.6,72,224.0
+PLTR,Palantir Technologies,194.20,2.39,3.1,Mark-Up Ignition,4.8,84,188.0
+TSLA,Tesla Inc,362.80,1.50,1.4,Whale Accumulation,3.1,64,355.0
+GME,GameStop Corp,24.60,6.12,3.6,Mark-Up Ignition,29.8,92,23.4
+SMCI,Super Micro Computer,52.30,7.28,4.2,Mark-Up Ignition,21.4,90,48.0

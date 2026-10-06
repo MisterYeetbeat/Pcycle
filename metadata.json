@@ -1,0 +1,6 @@
+{
+  "name": "Market Cycle Engine & Shorty Backtester",
+  "description": "Institutional market cycle analysis and backtest engine with Massive API bars, Unusual Whales GEX & order flow, and Shorty dataset integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
