@@ -1,4 +1,4 @@
-import { BarData, TriggerEvent } from './types.ts';
+import { BarData, TriggerEvent } from '../types.ts';
 
 // Helper to generate 90 daily trading bars ending on today (2026-10-01)
 export function generateNinetyDayBars(

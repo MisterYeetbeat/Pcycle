@@ -1,4 +1,4 @@
-import { BarData, CyclePhase, CycleState, FlowAndGex } from './types.ts';
+import { BarData, CyclePhase, CycleState, FlowAndGex } from '../types.ts';
 
 export interface EvaluationDetails {
   state: CycleState;
