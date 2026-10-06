@@ -1,4 +1,4 @@
-import { RetailTicker } from '../types.ts';
+import { RetailTicker } from './types.ts';
 import { getNinetyDayData } from './ninetyDayTriggers.ts';
 
 // Helper to generate realistic candles

@@ -25,9 +25,14 @@ export interface BacktestSummaryStats {
   lossCount: number;
   winRate: number;
   totalPnl: number;
+  totalPnlDollar: number;
+  totalPnlPct: number;
   profitFactor: number;
   avgWin: number;
+  avgWinPct: number;
   avgLoss: number;
+  avgLossPct: number;
+  realizedRrr: number;
   maxConsecutiveWins: number;
   maxConsecutiveLosses: number;
   avgHoldDays: number;
@@ -1744,9 +1749,14 @@ export function computeBacktestSummary(trades: BacktestTradeItem[]): BacktestSum
       lossCount: 0,
       winRate: 0,
       totalPnl: 0,
+      totalPnlDollar: 0,
+      totalPnlPct: 0,
       profitFactor: 0,
       avgWin: 0,
+      avgWinPct: 0,
       avgLoss: 0,
+      avgLossPct: 0,
+      realizedRrr: 0,
       maxConsecutiveWins: 0,
       maxConsecutiveLosses: 0,
       avgHoldDays: 0,
@@ -1807,15 +1817,25 @@ export function computeBacktestSummary(trades: BacktestTradeItem[]): BacktestSum
   const stdDev = Math.sqrt(variance) || 1;
   const sharpeRatio = Number(((meanReturn / stdDev) * Math.sqrt(252 / (avgHoldDays || 5))).toFixed(2));
 
+  const avgWinPct = wins.length > 0 ? Number((wins.reduce((acc, t) => acc + t.returnPct, 0) / wins.length).toFixed(2)) : 0;
+  const avgLossPct = losses.length > 0 ? Number((Math.abs(losses.reduce((acc, t) => acc + t.returnPct, 0)) / losses.length).toFixed(2)) : 0;
+  const realizedRrr = avgLossPct > 0 ? Number((avgWinPct / avgLossPct).toFixed(2)) : 2.0;
+  const totalPnlPct = Number(trades.reduce((acc, t) => acc + t.returnPct, 0).toFixed(2));
+
   return {
     totalTrades,
     winCount,
     lossCount,
     winRate,
     totalPnl: Number(totalPnl.toFixed(2)),
+    totalPnlDollar: Number(totalPnl.toFixed(2)),
+    totalPnlPct,
     profitFactor,
     avgWin,
+    avgWinPct,
     avgLoss,
+    avgLossPct,
+    realizedRrr,
     maxConsecutiveWins,
     maxConsecutiveLosses,
     avgHoldDays,
